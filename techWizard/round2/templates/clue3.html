@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>lookinthedark</title>
+  <style>
+  body {
+  margin-right: 150px;
+	margin-left:50px;
+	}
+    a.class1 {color:red;}
+    a.class1:link  {text-decoration: none; color: white;}
+    a.class1:visited {text-decoration: none; color: white;}
+    a.class1:hover {text-decoration: none; color: white;}
+    p.class3 {color:white;text-align:center;}
+    p.class2{color:black;
+      text-align: justify;
+      text-justify: inter-word;
+      font-size:20;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+  <body>
+
+<h1 align="center">Congrats<br</h1>
+<p>Well this one is different<br>
+  I hope you get this<br>
+  {% load static %}
+ <img src="{% static "round2/img6.jpg" %}" alt="lookinthedark"><br>
+ <p>Observe this picture carefully answer lies in it</p>
+ <p>---------------------------------------------------------------------------</p>
+ <p class="class2">The International Morse Code encodes the 26 English letters A through Z, some non-English letters, the Arabic numerals and a small set of punctuation and procedural signals (prosigns). There is no distinction between upper and lower case letters.Each Morse code symbol is formed by a sequence of dots and dashes. The dot duration is the basic unit of time measurement in Morse code transmission. The duration of a dash is three times the duration of a dot. Each dot or dash within a character is followed by period of signal absence, called a space, equal to the dot duration. The letters of a word are separated by a space of duration equal to three dots, and the words are separated by a space equal to seven dots.To increase the efficiency of encoding, Morse code was designed so that the length of each symbol is approximately inverse to the frequency of occurrence in text of the English language character that it represents. Thus the most common letter in English, the letter "E", has the shortest code: a single dot. Because the Morse code elements are specified by proportion rather than specific time durations, the code is usually transmitted at the highest rate that the receiver is capable of decoding. The Morse code transmission rate (speed) is specified in groups per minute, commonly referred to as words per minute.</p>
+ <br>
+ <img src="{% static "round2/img7.jpg" %}" alt="lookinthedark" width="150px" height="150pxs"><br>
+ <br>
+ <form action="/clue4.html">
+   Key in your answer: <input type="text" name="fooledyou" pattern="[vV][oO][oO][dD][oO][oO]" title="Wrong Answer">
+   <input type="submit">
+ </form>

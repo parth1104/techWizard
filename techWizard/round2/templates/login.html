@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!--meta http-equiv="Content-Type" content="text/html; charset=utf-8" /-->
+<link rel="icon" href="ti.jpg"/>
+<title>SDK On Cloud</title>
+
+<style>
+
+  a.class1 {color:red;}
+  a.class1:link  {text-decoration: none; color: black;}
+  a.class1:visited {text-decoration: none; color: black;}
+  a.class1:hover {text-decoration: none; color: black;}
+</style>
+
+{% load static %}
+<script type="text/jscript"  src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script  type="text/jscript"  src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel=”stylesheet” href=”{% static 'css/login.css' %}”>
+
+
+
+<!-- <script type="text/jscript"  src="login.js"></script> -->
+<script type="text/jscript"  src="{% static 'scripts/bootbox.min.js' %}"></script>
+
+</head>
+
+<body style=" font-family: 'Times New Roman',verdana;">
+
+  <div id="nav-placeholder">
+
+  </div>
+
+  <script type="text/javascript">
+  jQuery(document).ready(function($) {
+  jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
+  });
+  </script>
+
+<div class="flex-container">
+
+<header>
+<div class="menu">
+<h3>SDK On Cloud</h3>
+</div>
+</header>
+
+<div class="main">
+<div class="logo" id="one">
+      <img src="{% static "round2/ti_logo.jpg" %}"/>
+</div>
+
+<div>
+    <a class="class1" href="browser"><input type="button" value="Browser"></a>
+    <a class="class1" href="builder.html"><input type="button" value="Builder"></a>
+</div>
+</div>
+
+</div>
+</body>
+</html>
