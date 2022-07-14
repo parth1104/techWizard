@@ -1,10 +1,130 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+
+
+    $(document).ready(function(){
+      $("#buttons").click(function(){
+        var sdktype = $('#sdktype').val();
+        var soc = $('#soc').val();
+        var sdk = $('#sdk').val();
+        var core = $('#core').val();
+        var appname = $('#appname').val();
+        var build= $('#build').val();
+        console.log(sdktype + soc+sdk+core+appname);
+
+        $.ajax({
+        url: "buildersubmit/",
+        type: "get", //send it through get method
+        data: { 
+          sdktype: sdktype, 
+          soc : soc,
+          sdk : sdk,
+          core: core,
+          appname:appname,
+          build:build
+        },       
+        success: function(result){
+                  var i;
+                  //var ret = JSON.parse(result) 
+                  console.log(result); 
+                  // $('#sdk').empty()             
+                  // for (i = 0; i < ret.length; ++i) {
+                  //   $('#sdk').append(new Option(ret[i], ret[i]));
+                  // }
+        }});
+          
+      });
+
+
+    $('#sdktype').change(function() {
+
+      var sdktype = $('#sdktype').val();
+      var soc = $('#soc').val();
+
+      $.ajax({
+        url: "builderdata/",
+        type: "get", //send it through get method
+        data: { 
+          sdktype: sdktype, 
+          soc: soc
+        },       
+        success: function(result){
+                  var i;
+                  var ret = JSON.parse(result)  
+                  $('#sdk').empty()             
+                  for (i = 0; i < ret.length; ++i) {
+                    $('#sdk').append(new Option(ret[i], ret[i]));
+                  }
+        }});
+      });
+
+
+    });
+</script>  
+
+</head>
+
+
+
 <body>
+  <label for="soc">SOC:</label>
+  <select name="soc" id="soc" required>
+    <option value="">-</option>
+    <option value="j721e">J721e</option>
+    <option value="j7200">J7200</option>
+  </select>
+
+  <label for="sdktype">SDK Type:</label>
+  <select name="sdktype" id="sdktype" required>
+    <option value="">-</option>
+    <option value="linux">linux</option>
+    <option value="rtos">rtos</option>
+  </select>
+
+  <p id="abc"></p>
+
+  <label for="sdk">SDK:</label>
+  <select name="sdk" id="sdk" required onclick="front()">
+    <option value="">-</option>
+  </select>
+
+<label for="build">Build Profile:</label>
+  <select name="build" id="build" required >
+    <option value="debug">debug</option>
+    <option value="release">release</option>
+  </select>
+<br/>
+  <label for="core">Core:</label>
+  <select name="core" id="core" required >
+    <option value="mpu1_0">mpu1_0</option>
+    <option value="mpu1_1">mpu1_1</option>
+    <option value="mcu1_0">mcu1_0</option>
+    <option value="mcu1_1">mcu1_1</option>
+    <option value="mcu2_0">mcu2_0</option>
+    <option value="mcu2_1">mcu2_1</option>
+    <option value="mcu3_0">mcu3_0</option>
+    <option value="mcu3_1">mcu3_1</option>
+    <option value="c66xdsp_1">c66xdsp_1</option>
+    <option value="c66xdsp_2">c66xdsp_2</option>
+    <option value="c7x_1">c7x_1</option>
+  </select>
+
+  <label for="appname">App Name: </label>
+  <input type="text" name="appname" id="appname" required />
+  <input type="button" name="buttons" id="buttons" value="submit" />
+
+
+<!-- 
+
+
 <form action="/clue2.html">
   Key in your answer: <input type="text" name="day" pattern="[Ss][Uu][Nn][Dd][Aa][Yy]" title="Wrong Answer">
   <input type="submit">
-</form>
+</form> -->
 
 </body>
 </html>

@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 import os
+import json
+from django.http import HttpResponse
 
-gbase_path = "C:/ti/ti-processor-sdk-rtos-j7200-evm-08_01_00_11/"
+gbase_path = "/home/tanmay/inspire/sdk/"
 
 class Test(TemplateView):
     def get(self, request, **kwargs):
@@ -28,6 +30,8 @@ class Test2(TemplateView):
         dir_list = os.listdir(base_path)
         dir_tuple = list()
         for item in dir_list:
+            if item.startswith('.'):
+                continue
             complete_path = base_path+"/"+item
             if os.path.isdir(complete_path):
                 dir_tuple.append((item, 'd'))
@@ -48,15 +52,48 @@ class Test3(TemplateView):
 
 class Test4(TemplateView):
     def get(self, request, **kwargs):
-        return render(request, 'clue2.html', context=None)
+        sdk_list = []
+
+        return render(request, 'builder.html', context=None)
 
 class Test5(TemplateView):
     def get(self, request, **kwargs):
-        return render(request, 'c2key.html', context=None)
+        sdktype = request.GET["sdktype"]
+        soc = request.GET["soc"] 
+        folderpath = gbase_path+soc+"/"+sdktype     
+        dir_list = os.listdir(folderpath)
+
+        return HttpResponse(json.dumps(dir_list))
+
 
 class Test6(TemplateView):
     def get(self, request, **kwargs):
-        return render(request, 'clue3.html', context=None)
+        print("hello**************************")
+        sdktype = request.GET["sdktype"]
+        soc = request.GET["soc"] 
+        sdk = request.GET["sdk"]
+        core = request.GET["core"]
+        appname = request.GET["appname"]
+        build = request.GET["build"]
+        folderpath=""
+        make = ""
+        if sdktype=="linux":
+            folderpath = gbase_path+soc+"/"+sdktype+"/"+sdk 
+            make = "make -s "+appname
+        else:
+            folderpath = gbase_path+soc+"/"+sdktype+"/"+sdk+"/pdk*/packages/ti/build"
+            make = "make -s CORE="+core+" -C " + folderpath + " BUILD_PROFILE="+ build + " " + appname
+        print(folderpath + " " + make)
+
+        os.system("cd " + folderpath)
+        print(1)
+        os.system('pwd')
+        osresponse = os.system(make)
+        print(os.getcwd())
+        return HttpResponse(json.dumps(osresponse))
+
+
+
 
 
 
