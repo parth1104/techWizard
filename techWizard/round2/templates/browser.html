@@ -4,8 +4,39 @@
   <title>Browse SDK</title>
   {% load static %}
   <script type="text/javascript" src="{% static 'scripts/jquery-3.5.0.js' %}"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+
+    $(document).ready(function(){
+    $('#searchtext').submit(function() {
+
+      var ipst = $('#ipst').val();
+      console.log(ipst)
+      $.ajax({
+        url: "searchbrowser/",
+        type: "get", //send it through get method
+        data: { 
+          ipst: ipst
+        },       
+        success: function(result){
+                  var i;
+                  console.log(result)
+                  console.log(result.length)
+                  var ret = JSON.parse(result) 
+                   
+                  console.log(ret)
+
+                  $('#sdk').empty()             
+                  for (i = 0; i < ret.length; ++i) {
+                    $('#sdk').append(new Option(ret[i], ret[i]));
+                  }
+        }});
+      });
+    });
+
+  </script>
   <style>
+
+
   body {
     font-family: "Lato", sans-serif;
   }
@@ -51,7 +82,41 @@
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+
+  form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
   </style>
+
+
 
 </head>
 <body>
@@ -66,15 +131,27 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
 });
 </script>
 
+
 <div class="sidenav">
   {% for comp in dir_tuple %}
     {% if comp.1 == "d" %}
       <a href="{{ request.path }}{{ comp.0 }}">{{ comp.0 }}</a>
     {% else %}
-      <a href="/read{{ request.path }}{{ comp.0 }}">{{ comp.0 }}</a>
+      <a href="{{ request.path }}{{ comp.0 }}">{{ comp.0 }}</a>
     {% endif %}
   {% endfor %}
 </div>
+
+<div>
+  <form class="example" style="margin:auto;max-width:300px">
+    <input name="searchtext" id="ipst" type="text" placeholder="Search..">
+    <button id="searchtext" type="submit" style="margin-top:20px; max-width:300px">Submit</button>
+  </form>
+</div>>
+
+<div class="top-right">
+	<textarea readonly="true" name="info" style="width:80%;margin-left:15%;" id="info" cols="39" rows="40" >{{ fileTest }}</textarea>
+</div>	
 
 
 </body>
