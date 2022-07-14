@@ -188,15 +188,25 @@ class Test6(TemplateView):
             make = "make -s "+appname
         else:
             folderpath = gbase_path+soc+"/"+sdktype+"/"+sdk+"/pdk*/packages/ti/build"
-            make = "make -s CORE="+core+" -C " + folderpath + " BUILD_PROFILE="+ build + " " + appname
+            make = "make -s CORE="+core+" -C " + folderpath + " BUILD_PROFILE="+ build + " " + appname + " > output.txt"
         print(folderpath + " " + make)
-
-        os.system("cd " + folderpath)
-        print(1)
-        os.system('pwd')
-        osresponse = os.system(make)
-        print(os.getcwd())
-        return HttpResponse(json.dumps(osresponse))
+        # print(1)
+        # os.system('pwd')
+        os.system(make)
+        # print(os.getcwd())
+        fileText = ""
+        scriptFile = open('output.txt', "r")
+        for fullLine in scriptFile:
+            fileText = str(fileText) + str(fullLine)
+        
+        print(fileText)
+        temp = render(request, 'builder.html', {'fileText': fileText})
+        # temp = HttpResponse(json.dumps("success"))
+        # return render(request, 'builder.html', {'fileText': fileText})
+        resp = []
+        resp.append('success')
+        resp.append(fileText)
+        return HttpResponse(json.dumps(resp))
 
 
 

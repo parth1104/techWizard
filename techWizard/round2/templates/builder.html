@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <!-- {% load static %} -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
 
@@ -28,13 +29,9 @@
           build:build
         },       
         success: function(result){
-                  var i;
-                  //var ret = JSON.parse(result) 
-                  console.log(result); 
-                  // $('#sdk').empty()             
-                  // for (i = 0; i < ret.length; ++i) {
-                  //   $('#sdk').append(new Option(ret[i], ret[i]));
-                  // }
+                  var resp = JSON.parse(result)
+                  $('#info').empty()
+                  $("#info").text(resp[1]);
         }});
           
       });
@@ -62,8 +59,11 @@
         }});
       });
 
+      // $('#nav-placeholder').load("{% static 'nav.html' %}");
 
     });
+
+
 </script>  
 
 </head>
@@ -125,6 +125,11 @@
   Key in your answer: <input type="text" name="day" pattern="[Ss][Uu][Nn][Dd][Aa][Yy]" title="Wrong Answer">
   <input type="submit">
 </form> -->
+
+<div style="margin-top: 20px;">
+  <textarea readonly="true" name="info" style="width:80%;margin-left:15%;" id="info" cols="39" rows="40" ></textarea>
+  <!-- <p id="info"></p> -->
+</div>
 
 </body>
 </html>
