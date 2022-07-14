@@ -6,32 +6,32 @@
   <script type="text/javascript" src="{% static 'scripts/jquery-3.5.0.js' %}"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
 
-    $(document).ready(function(){
-    $('#searchtext').submit(function() {
+    // $(document).ready(function(){
+    // $('#searchtext').submit(function() {
 
-      var ipst = $('#ipst').val();
-      console.log(ipst)
-      $.ajax({
-        url: "searchbrowser/",
-        type: "get", //send it through get method
-        data: { 
-          ipst: ipst
-        },       
-        success: function(result){
-                  var i;
-                  console.log(result)
-                  console.log(result.length)
-                  var ret = JSON.parse(result) 
+    //   var ipst = $('#ipst').val();
+    //   console.log(ipst)
+    //   $.ajax({
+    //     url: "searchbrowser/",
+    //     type: "get", //send it through get method
+    //     data: { 
+    //       ipst: ipst
+    //     },       
+    //     success: function(result){
+    //               var i;
+    //               console.log(result)
+    //               console.log(result.length)
+    //               var ret = JSON.parse(result) 
                    
-                  console.log(ret)
+    //               console.log(ret)
 
-                  $('#sdk').empty()             
-                  for (i = 0; i < ret.length; ++i) {
-                    $('#sdk').append(new Option(ret[i], ret[i]));
-                  }
-        }});
-      });
-    });
+    //               $('#sdk').empty()             
+    //               for (i = 0; i < ret.length; ++i) {
+    //                 $('#sdk').append(new Option(ret[i], ret[i]));
+    //               }
+    //     }});
+    //   });
+    // });
 
   </script>
   <style>
@@ -135,17 +135,18 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
 <div class="sidenav">
   {% for comp in dir_tuple %}
     {% if comp.1 == "d" %}
-      <a href="{{ request.path }}{{ comp.0 }}">{{ comp.0 }}</a>
+      <a href="{{ comp.2 }}">{{ comp.0 }}</a>
     {% else %}
-      <a href="{{ request.path }}{{ comp.0 }}">{{ comp.0 }}</a>
+      <a href="{{ comp.2 }}">{{ comp.0 }}</a>
     {% endif %}
   {% endfor %}
 </div>
 
 <div>
-  <form class="example" style="margin:auto;max-width:300px">
+  <form class="example" method="POST" action="{% url  'searchString' %}" style="margin:auto;max-width:300px">
+    {% csrf_token %}
     <input name="searchtext" id="ipst" type="text" placeholder="Search..">
-    <button id="searchtext" type="submit" style="margin-top:20px; max-width:300px">Submit</button>
+    <button id="searchtext" type="submit">Submit</button>
   </form>
 </div>>
 

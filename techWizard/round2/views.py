@@ -6,6 +6,112 @@ from django.http import HttpResponse
 
 gbase_path = "/home/tanmay/inspire/sdk/"
 
+SS_IS_UNKNOWN=0
+SS_IS_IF=1
+SS_IS_FUNC=2
+SS_IS_STRUCT=3
+SS_IS_MACRO=4
+SS_IS_VAR=5
+
+# For functions : [ss_type, ss, [(file, line, func_defn)] [(file, func_called, line)] [(file, calling_func, line)]]
+# For others : [ss_type, ss, [(file, line)] [(file, line)] ]
+
+
+def get_cscope_cmd(level, search_string):
+    return "cscope -q -L" + str(level) + " " + search_string + " > temp_sr_file.txt"
+
+def get_search_results_standard(search_string):
+    ret = list()
+    ss_type = SS_IS_UNKNOWN
+    os.system(get_cscope_cmd(7, search_string))
+    if os.stat('temp_sr_file.txt').st_size != 0 :
+        ss_type = SS_IS_IF
+        ret.append(ss_type)
+        ret.append(search_string)
+        def_files = list()
+        with open('temp_sr_file.txt') as srf:
+            for line in srf:
+                tl = line.split(' ')
+                def_files.append((tl[0], -1))
+        os.system(get_cscope_cmd(8, search_string))
+        ref_files = list()
+        with open('temp_sr_file.txt') as srf:
+            for line in srf:
+                tl = line.split(' ')
+                ref_files.append((tl[0], int(tl[2])))
+        ret.append(def_files)
+        ret.append(ref_files)
+        return ret
+
+    os.system(get_cscope_cmd(2, search_string))
+    if os.stat('temp_sr_file.txt').st_size != 0 :
+        ss_type = SS_IS_FUNC
+        ret.append(ss_type)
+        ret.append(search_string)
+        called_files = list()
+        with open('temp_sr_file.txt') as srf:
+            for line in srf:
+                tl = line.split(' ')
+                called_files.append((tl[0], tl[1], int(tl[2])))
+        os.system(get_cscope_cmd(1, search_string))
+        def_files = list()
+        with open('temp_sr_file.txt') as srf:
+            for line in srf:
+                tl = line.split(' ', 3)
+                def_files.append((tl[0], int(tl[2]), tl[3][:-1]))
+        os.system(get_cscope_cmd(3, search_string))
+        calling_files = list()
+        with open('temp_sr_file.txt') as srf:
+            for line in srf:
+                tl = line.split(' ')
+                calling_files.append((tl[0], tl[1], int(tl[2])))
+        ret.append(def_files)
+        ret.append(called_files)
+        ret.append(calling_files)
+        return ret
+
+    os.system(get_cscope_cmd(1, search_string))
+    if os.stat('temp_sr_file.txt').st_size != 0 :
+        def_files = list()
+        with open('temp_sr_file.txt') as srf:
+            for i,line in enumerate(srf):
+                if i == 0 :
+                    tl = line.split(' ')
+                    ss_type = SS_IS_STRUCT if line.find('#define') == -1 else SS_IS_MACRO
+                    def_files.append((tl[0], int(tl[2])))
+                else :    
+                    tl = line.split(' ')
+                    def_files.append((tl[0], int(tl[2])))
+        ret.append(ss_type)
+        ret.append(search_string)
+        ret.append(def_files)
+        os.system(get_cscope_cmd(0, search_string))
+        ref_files = list()
+        with open('temp_sr_file.txt') as srf:
+            for line in srf:
+                tl = line.split(' ')
+                ref_files.append((tl[0], int(tl[2])))
+        ret.append(ref_files)
+        return ret
+
+    os.system(get_cscope_cmd(0, search_string))
+    if os.stat('temp_sr_file.txt').st_size != 0 :
+        ss_type = SS_IS_VAR
+        ref_files = list()
+        with open('temp_sr_file.txt') as srf:
+            for line in srf:
+                tl = line.split(' ')
+                ref_files.append((tl[0], int(tl[2])))
+        ret.append(ss_type)
+        ret.append(search_string)
+        ret.append((-1,-1))
+        ret.append(ref_files)       
+        return ret
+
+    return ret
+
+
+
 class Test(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'login.html', context=None)
@@ -18,25 +124,22 @@ class Test2(TemplateView):
         else:
             base_path = gbase_path           
         if (os.path.isdir(base_path) == False):
-            base_path = gbase_path + path_name
-            scriptFile = open(base_path, "r")
+            tl=[i for i in base_path.split('/') if i]
+            base_path = '/' + '/'.join(tl[:-1]) + '/'
+            scriptFile = open(base_path + tl[-1], "r")
             for fullLine in scriptFile:
                 fileText = str(fileText) + str(fullLine)
-
-            tl=[i for i in base_path.split('/') if i]
-            base_path = '/'.join(tl[:-1]) + '/'
-            print(base_path)
-
         dir_list = os.listdir(base_path)
         dir_tuple = list()
         for item in dir_list:
             if item.startswith('.'):
                 continue
             complete_path = base_path+"/"+item
+            ref_path = "/browser/" + os.path.relpath(complete_path, gbase_path)
             if os.path.isdir(complete_path):
-                dir_tuple.append((item, 'd'))
+                dir_tuple.append((item, 'd', ref_path))
             else:
-                dir_tuple.append((item, 'f'))
+                dir_tuple.append((item, 'f', ref_path))
         return render(request, 'browser.html', {'dir_tuple' : dir_tuple, 'fileTest' : fileText })
 
 
@@ -99,11 +202,31 @@ class Test6(TemplateView):
 
 
 class Test7(TemplateView):
-    def get(self, request, **kwargs):
-        ipst = request.GET["ipst"]
-        mylst=[3, CpswAle, [('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 202)], [('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 123), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 135), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw.h', 208), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw.h', 286), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 202), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 229), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 243), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 252), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 261), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 273), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 283), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 294), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 306), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 327), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 345), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 369), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 389), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 405), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 417), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 428), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/include/cpsw/Cpsw_Ale.h', 439), ('mcusw/mcal_drv/mcal/Eth/src/Eth_Priv.c', 377), ('mcusw/mcal_drv/mcal/Eth/src/Eth_Priv.c', 1323), ('mcusw/mcal_drv/mcal/Eth/src/Eth_Priv.c', 1340), ('mcusw/mcal_drv/mcal/Eth/src/Eth_Priv.c', 1386), ('mcusw/mcal_drv/mcal/Eth/src/Eth_Priv.c', 1406), ('mcusw/mcal_drv/mcal/Eth/src/Eth_Priv.c', 1432), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 148), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 168), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 206), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 255), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 269), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 275), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 281), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 295), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 300), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 312), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 322), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 375), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 382), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 444), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 496), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 517), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 540), ('mcusw/mcal_drv/mcal/Eth/src/cpsw/Cpsw_Ale.c', 563)]]
-        print(mylst)
-        return HttpResponse(json.dumps(mylst))
+    def post(self, request, path_name=""):
+        if request.method == "POST":
+            searchtext = request.POST['searchtext']
+        
+        base_path = gbase_path
+        dir_list = os.listdir(base_path)
+        dir_tuple = list()
+        for item in dir_list:
+            if item.startswith('.'):
+                continue
+            complete_path = base_path+"/"+item
+            ref_path = "/browser/" + os.path.relpath(complete_path, gbase_path)
+            if os.path.isdir(complete_path):
+                dir_tuple.append((item, 'd', ref_path))
+            else:
+                dir_tuple.append((item, 'f', ref_path))
+
+        os.chdir('/home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/')
+
+        mylst = get_search_results_standard(searchtext)
+
+        # if mylst[0] == SS_IS_UNKNOWN :
+
+        # fileText = '\n'.join(['\n'.join(i) for i in mylst if len(i)>2])
+        return render(request, 'browser.html', {'dir_tuple' : dir_tuple, 'fileTest' : str(mylst) })
 
 class Test8(TemplateView):
     def get(self, request, **kwargs):

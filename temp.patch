@@ -1,0 +1,247 @@
+diff --git a/techWizard/round2/static/nav.html b/techWizard/round2/static/nav.html
+index 8e79119..5981167 100644
+--- a/techWizard/round2/static/nav.html
++++ b/techWizard/round2/static/nav.html
+@@ -38,7 +38,7 @@ body {
+ <div class="topnav">
+   <a class="active" href='/login'>Home</a>
+   <a href="/browser">Browser</a>
+-  <a href="builder.html">Builder</a>
++  <a href="/builder.html">Builder</a>
+ </div>
+ 
+ 
+diff --git a/techWizard/round2/templates/builder.html b/techWizard/round2/templates/builder.html
+index 90f260b..166be4b 100644
+--- a/techWizard/round2/templates/builder.html
++++ b/techWizard/round2/templates/builder.html
+@@ -1,10 +1,130 @@
+ <!DOCTYPE html>
+ <html>
++
++<head>
++  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
++  <script>
++
++
++    $(document).ready(function(){
++      $("#buttons").click(function(){
++        var sdktype = $('#sdktype').val();
++        var soc = $('#soc').val();
++        var sdk = $('#sdk').val();
++        var core = $('#core').val();
++        var appname = $('#appname').val();
++        var build= $('#build').val();
++        console.log(sdktype + soc+sdk+core+appname);
++
++        $.ajax({
++        url: "buildersubmit/",
++        type: "get", //send it through get method
++        data: { 
++          sdktype: sdktype, 
++          soc : soc,
++          sdk : sdk,
++          core: core,
++          appname:appname,
++          build:build
++        },       
++        success: function(result){
++                  var i;
++                  //var ret = JSON.parse(result) 
++                  console.log(result); 
++                  // $('#sdk').empty()             
++                  // for (i = 0; i < ret.length; ++i) {
++                  //   $('#sdk').append(new Option(ret[i], ret[i]));
++                  // }
++        }});
++          
++      });
++
++
++    $('#sdktype').change(function() {
++
++      var sdktype = $('#sdktype').val();
++      var soc = $('#soc').val();
++
++      $.ajax({
++        url: "builderdata/",
++        type: "get", //send it through get method
++        data: { 
++          sdktype: sdktype, 
++          soc: soc
++        },       
++        success: function(result){
++                  var i;
++                  var ret = JSON.parse(result)  
++                  $('#sdk').empty()             
++                  for (i = 0; i < ret.length; ++i) {
++                    $('#sdk').append(new Option(ret[i], ret[i]));
++                  }
++        }});
++      });
++
++
++    });
++</script>  
++
++</head>
++
++
++
+ <body>
++  <label for="soc">SOC:</label>
++  <select name="soc" id="soc" required>
++    <option value="">-</option>
++    <option value="j721e">J721e</option>
++    <option value="j7200">J7200</option>
++  </select>
++
++  <label for="sdktype">SDK Type:</label>
++  <select name="sdktype" id="sdktype" required>
++    <option value="">-</option>
++    <option value="linux">linux</option>
++    <option value="rtos">rtos</option>
++  </select>
++
++  <p id="abc"></p>
++
++  <label for="sdk">SDK:</label>
++  <select name="sdk" id="sdk" required onclick="front()">
++    <option value="">-</option>
++  </select>
++
++<label for="build">Build Profile:</label>
++  <select name="build" id="build" required >
++    <option value="debug">debug</option>
++    <option value="release">release</option>
++  </select>
++<br/>
++  <label for="core">Core:</label>
++  <select name="core" id="core" required >
++    <option value="mpu1_0">mpu1_0</option>
++    <option value="mpu1_1">mpu1_1</option>
++    <option value="mcu1_0">mcu1_0</option>
++    <option value="mcu1_1">mcu1_1</option>
++    <option value="mcu2_0">mcu2_0</option>
++    <option value="mcu2_1">mcu2_1</option>
++    <option value="mcu3_0">mcu3_0</option>
++    <option value="mcu3_1">mcu3_1</option>
++    <option value="c66xdsp_1">c66xdsp_1</option>
++    <option value="c66xdsp_2">c66xdsp_2</option>
++    <option value="c7x_1">c7x_1</option>
++  </select>
++
++  <label for="appname">App Name: </label>
++  <input type="text" name="appname" id="appname" required />
++  <input type="button" name="buttons" id="buttons" value="submit" />
++
++
++<!-- 
++
++
+ <form action="/clue2.html">
+   Key in your answer: <input type="text" name="day" pattern="[Ss][Uu][Nn][Dd][Aa][Yy]" title="Wrong Answer">
+   <input type="submit">
+-</form>
++</form> -->
+ 
+ </body>
+ </html>
+diff --git a/techWizard/round2/urls.py b/techWizard/round2/urls.py
+index 5202e73..a3d446e 100644
+--- a/techWizard/round2/urls.py
++++ b/techWizard/round2/urls.py
+@@ -7,12 +7,11 @@ urlpatterns = [
+     path('login', views.Test.as_view()),
+     re_path(r'^browser/$', views.Test2.as_view()),
+     re_path(r'^browser/(?P<path_name>\S+)/$', views.Test2.as_view()),
++    re_path(r'^read/browser/(?P<path_name>\S+)/$', views.Test3.as_view()),
++    re_path(r'^builderdata/$', views.Test5.as_view()),
++    re_path(r'^buildersubmit/$', views.Test6.as_view()),
++    path('builder.html', views.Test4.as_view()),
+     re_path(r'^browser/(?P<ss>\S+)$', views.Test7.as_view()),
+-    #re_path(r'^read/browser/(?P<path_name>\S+)/$', views.Test3.as_view()),
+-    path('clue2.html', views.Test4.as_view()),
+-    path('c2key.html', views.Test5.as_view()),
+-    path('clue3.html', views.Test6.as_view()),
+-    path('clue4.html', views.Test7.as_view()),
+     path('c4key.html', views.Test8.as_view()),
+     path('circuit.html', views.Test9.as_view()),
+ 
+diff --git a/techWizard/round2/views.py b/techWizard/round2/views.py
+index dd2acc1..add8f46 100644
+--- a/techWizard/round2/views.py
++++ b/techWizard/round2/views.py
+@@ -1,8 +1,10 @@
+ from django.shortcuts import render
+ from django.views.generic import TemplateView
+ import os
++import json
++from django.http import HttpResponse
+ 
+-gbase_path = "C:/ti/ti-processor-sdk-rtos-j7200-evm-08_01_00_11/"
++gbase_path = "/home/tanmay/inspire/sdk/"
+ 
+ class Test(TemplateView):
+     def get(self, request, **kwargs):
+@@ -28,6 +30,8 @@ class Test2(TemplateView):
+         dir_list = os.listdir(base_path)
+         dir_tuple = list()
+         for item in dir_list:
++            if item.startswith('.'):
++                continue
+             complete_path = base_path+"/"+item
+             if os.path.isdir(complete_path):
+                 dir_tuple.append((item, 'd'))
+@@ -48,15 +52,48 @@ class Test3(TemplateView):
+ 
+ class Test4(TemplateView):
+     def get(self, request, **kwargs):
+-        return render(request, 'clue2.html', context=None)
++        sdk_list = []
++
++        return render(request, 'builder.html', context=None)
+ 
+ class Test5(TemplateView):
+     def get(self, request, **kwargs):
+-        return render(request, 'c2key.html', context=None)
++        sdktype = request.GET["sdktype"]
++        soc = request.GET["soc"] 
++        folderpath = gbase_path+soc+"/"+sdktype     
++        dir_list = os.listdir(folderpath)
++
++        return HttpResponse(json.dumps(dir_list))
++
+ 
+ class Test6(TemplateView):
+     def get(self, request, **kwargs):
+-        return render(request, 'clue3.html', context=None)
++        print("hello**************************")
++        sdktype = request.GET["sdktype"]
++        soc = request.GET["soc"] 
++        sdk = request.GET["sdk"]
++        core = request.GET["core"]
++        appname = request.GET["appname"]
++        build = request.GET["build"]
++        folderpath=""
++        make = ""
++        if sdktype=="linux":
++            folderpath = gbase_path+soc+"/"+sdktype+"/"+sdk 
++            make = "make -s "+appname
++        else:
++            folderpath = gbase_path+soc+"/"+sdktype+"/"+sdk+"/pdk*/packages/ti/build"
++            make = "make -s CORE="+core+" -C " + folderpath + " BUILD_PROFILE="+ build + " " + appname
++        print(folderpath + " " + make)
++
++        os.system("cd " + folderpath)
++        print(1)
++        os.system('pwd')
++        osresponse = os.system(make)
++        print(os.getcwd())
++        return HttpResponse(json.dumps(osresponse))
++
++
++
+ 
+ 
+ 
