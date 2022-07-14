@@ -15,6 +15,7 @@ SS_IS_VAR=5
 
 # For functions : [ss_type, ss, [(file, line, func_defn)] [(file, func_called, line)] [(file, calling_func, line)]]
 # For others : [ss_type, ss, [(file, line)] [(file, line)] ]
+# For Variable : [ss_type, ss, [(file, in_function, line)] ]
 
 
 def get_cscope_cmd(level, search_string):
@@ -101,7 +102,7 @@ def get_search_results_standard(search_string):
         with open('temp_sr_file.txt') as srf:
             for line in srf:
                 tl = line.split(' ')
-                ref_files.append((tl[0], int(tl[2])))
+                ref_files.append((tl[0], tl[1] ,int(tl[2])))
         ret.append(ss_type)
         ret.append(search_string)
         ret.append((-1,-1))
@@ -137,10 +138,12 @@ class Test2(TemplateView):
             complete_path = base_path+"/"+item
             ref_path = "/browser/" + os.path.relpath(complete_path, gbase_path)
             if os.path.isdir(complete_path):
-                dir_tuple.append((item, 'd', ref_path))
+                dir_tuple.append((item, 'd', ref_path, 0))
             else:
-                dir_tuple.append((item, 'f', ref_path))
-        return render(request, 'browser.html', {'dir_tuple' : dir_tuple, 'fileTest' : fileText })
+                dir_tuple.append((item, 'f', ref_path, 0))
+
+        isSearch = 0
+        return render(request, 'browser.html', {'dir_tuple' : dir_tuple, 'fileTest' : fileText, 'isSearch' : isSearch })
 
 
 class Test3(TemplateView):
@@ -205,7 +208,6 @@ class Test7(TemplateView):
     def post(self, request, path_name=""):
         if request.method == "POST":
             searchtext = request.POST['searchtext']
-        
         base_path = gbase_path
         dir_list = os.listdir(base_path)
         dir_tuple = list()
@@ -215,18 +217,63 @@ class Test7(TemplateView):
             complete_path = base_path+"/"+item
             ref_path = "/browser/" + os.path.relpath(complete_path, gbase_path)
             if os.path.isdir(complete_path):
-                dir_tuple.append((item, 'd', ref_path))
+                dir_tuple.append((item, 'd', ref_path, 1))
             else:
-                dir_tuple.append((item, 'f', ref_path))
-
-        os.chdir('/home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/')
-
+                dir_tuple.append((item, 'f', ref_path, 1))
+                
+        search_base_dir = '/home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/'
+        os.chdir(search_base_dir)
+        search_rel_path = os.path.relpath(search_base_dir, gbase_path) + '/'
         mylst = get_search_results_standard(searchtext)
+        srch_res = []
+        tt = []
 
-        # if mylst[0] == SS_IS_UNKNOWN :
+        if mylst[0] == SS_IS_UNKNOWN :
+            srch_res.append((0, "Cannot find any reference for " + searchtext))
+        
+        if mylst[0] == SS_IS_IF or mylst[0] == SS_IS_STRUCT or mylst[0] == SS_IS_MACRO:
+            ts = 'file' if mylst[0] == SS_IS_IF else 'Structure' if mylst[0] == SS_IS_STRUCT else 'MACRO'
+            srch_res.append((1, searchtext + " is a " + ts + "."))
+            srch_res.append((1, "Defination(s) of " + searchtext + " :"))
+            for item in mylst[2] :
+                tt.append((item[0]+'@'+str(item[1]), '/browser/' + search_rel_path + item[0], ''))
+            srch_res.append((0, tt))
+            tt=[]
+            srch_res.append((1, "References for " + searchtext + " :"))
+            for item in mylst[3] :
+                tt.append((item[0]+'@'+str(item[1]), '/browser/' + search_rel_path + item[0], ''))
+            srch_res.append((0, tt))
+            tt=[]
 
-        # fileText = '\n'.join(['\n'.join(i) for i in mylst if len(i)>2])
-        return render(request, 'browser.html', {'dir_tuple' : dir_tuple, 'fileTest' : str(mylst) })
+        if mylst[0] == SS_IS_FUNC :
+            srch_res.append((1, searchtext + " is a Function."))
+            srch_res.append((1, "Defination(s) of " + searchtext + " :"))
+            for item in mylst[2] :
+                tt.append((item[0]+'@'+str(item[1]), '/browser/' + search_rel_path + item[0], ' ( ' + item[2] + ' )'))
+            srch_res.append((0, tt))
+            tt=[]
+            srch_res.append((1, "Funtions called in " + searchtext + " :"))
+            for item in mylst[3] :
+                tt.append((item[0]+'@'+str(item[2]), '/browser/' + search_rel_path + item[0], ' ( ' + item[1] + ' )'))
+            srch_res.append((0, tt))
+            tt=[]
+            srch_res.append((1, "Funtions calling " + searchtext + " :"))
+            for item in mylst[4] :
+                tt.append((item[0]+'@'+str(item[2]), '/browser/' + search_rel_path + item[0], ' ( ' + item[1] + ' )'))
+            srch_res.append((0, tt))
+            tt=[]
+
+        if mylst[0] == SS_IS_VAR :
+            srch_res.append((1, searchtext + " is a Variable."))
+            srch_res.append((1, "References of " + searchtext + " :"))
+            for item in mylst[2] :
+                tt.append((item[0]+'@'+str(item[2]), '/browser/' + search_rel_path + item[0], ' ( ' + item[1] + ' )'))
+            srch_res.append((0, tt))
+            tt=[]
+
+        isSearch = 1            
+
+        return render(request, 'browser.html', {'dir_tuple' : dir_tuple, 'fileTest' : str(mylst) , 'isSearch' : isSearch , 'srch_res' : srch_res})
 
 class Test8(TemplateView):
     def get(self, request, **kwargs):

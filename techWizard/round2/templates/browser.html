@@ -55,7 +55,7 @@
   .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 10px;
+    font-size: 15px;
     color: #818181;
     display: block;
   }
@@ -63,7 +63,7 @@
   .sidenav li {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 10px;
+    font-size: 15px;
     color: #818181;
     display: block;
   }
@@ -143,15 +143,32 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
 </div>
 
 <div>
-  <form class="example" method="POST" action="{% url  'searchString' %}" style="margin:auto;max-width:300px">
+  <form class="example" method="POST" action="{% url  'searchString' %}" style="margin:auto;max-width:400px;margin-top:10px;">
     {% csrf_token %}
-    <input name="searchtext" id="ipst" type="text" placeholder="Search..">
-    <button id="searchtext" type="submit">Submit</button>
+    <input name="searchtext" id="ipst" type="text" placeholder="Search.." style="width:250px">
+    <button id="searchtext" type="submit" style="width:150px">Submit</button>
   </form>
 </div>>
 
 <div class="top-right">
-	<textarea readonly="true" name="info" style="width:80%;margin-left:15%;" id="info" cols="39" rows="40" >{{ fileTest }}</textarea>
+  {% if isSearch == 0 %}
+	  <textarea readonly="true" name="info" style="width:80%;margin-left:15%;" id="info" cols="39" rows="40" >{{ fileTest }}</textarea>
+  {% else %}
+  <div style="margin-left:220px;">
+    {% for items in srch_res %}
+      {% if items.0 == 1 %}
+        <p style="font-size:18px;">{{ items.1 }}</p>
+      {% else %}
+      <ul>
+        {% for item in items.1 %}
+          <li style="font-size:15px;"><a href="{{ item.1 }}">{{ item.0 }}{{ item.2 }}</a></li>
+        {%endfor%}
+      </ul>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+  
 </div>	
 
 
