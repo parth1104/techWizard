@@ -1,0 +1,13 @@
+~/inspire/sdk/j721e/rtos/08_01_00_13/pdk_jacinto_08_01_00_36/packages/ti/board/diag/led/build ~/inspire/sdk/j721e/rtos/08_01_00_13/pdk_jacinto_08_01_00_36/packages/ti/board/diag/led/build
+R5 Certificate being generated :
+	X509_CFG = ./x509-temp.cfg
+	KEY = /home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/pdk_jacinto_08_01_00_36/packages/ti/build/makerules/k3_dev_mpk.pem
+	BIN = /home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/pdk_jacinto_08_01_00_36/packages/ti/binary/board_diag_led/bin/j721e_evm/board_diag_led_mcu1_0_debug.appimage
+	CERT TYPE = R5, 1
+	CORE ID = 16
+	LOADADDR = 0x41c00100
+	IMAGE_SIZE = 256620
+	BOOT_OPTIONS = 0
+SUCCESS: Image /home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/pdk_jacinto_08_01_00_36/packages/ti/binary/board_diag_led/bin/j721e_evm/board_diag_led_mcu1_0_debug.appimage.signed generated. Good to boot
+# SBL App image /home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/pdk_jacinto_08_01_00_36/packages/ti/binary/board_diag_led/bin/j721e_evm/board_diag_led_mcu1_0_debug.appimage and /home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/pdk_jacinto_08_01_00_36/packages/ti/binary/board_diag_led/bin/j721e_evm/board_diag_led_mcu1_0_debug_BE.appimage created.
+#

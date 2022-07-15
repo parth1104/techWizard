@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% load static %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+</head>
+
+
+
+<body>
+  <div id="nav-placeholder">
+  </div>
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+    jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
+    });
+    </script>
+
+<!-- 
+
+
+<form action="/clue2.html">
+  Key in your answer: <input type="text" name="day" pattern="[Ss][Uu][Nn][Dd][Aa][Yy]" title="Wrong Answer">
+  <input type="submit">
+</form> -->
+
+<div style="padding:5%;">
+  <textarea readonly="true" name="info" style="width:100%;height:150%;" id="info" cols="39" rows="40" >{{ Textfile }}</textarea>
+  <!-- <p id="info"></p> -->
+</div>
+
+
+</body>
+</html>

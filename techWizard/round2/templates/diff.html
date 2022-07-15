@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Diff SDK</title>
+  {% load static %}
+  <script type="text/javascript" src="{% static 'scripts/jquery-3.5.0.js' %}"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+
+    $(document).ready(function(){    
+
+    $("#buttons_submit").click(function(){
+        var sdktype = $('#sdktype').val();
+        var soc = $('#soc').val();
+        var sdk1 = $('#sdk1').val();
+        var sdk2 = $('#sdk2').val();
+        console.log(sdktype + soc+sdk1+sdk2);
+
+        $.ajax({
+            url: "diffsubmit/",
+            type: "get", //send it through get method
+            data: { 
+                sdktype: sdktype, 
+                soc : soc,
+                sdk1 : sdk1,
+                sdk2 : sdk2,
+            },       
+        success: function(result){
+            var resp = JSON.parse(result)
+            $('#info').empty()
+            $("#info").text(resp[1]);
+        }});
+        
+    });
+
+    $('#sdktype').change(function() {
+
+    var sdktype = $('#sdktype').val();
+    var soc = $('#soc').val();
+
+    $.ajax({
+        url: "diffdata/",
+        type: "get", //send it through get method
+        data: { 
+            sdktype: sdktype, 
+            soc: soc
+        },       
+        success: function(result){
+            var i;
+            var ret = JSON.parse(result);
+            $('#sdk1').empty();            
+            $('#sdk2').empty();       
+            for (i = 0; i < ret.length; ++i) {
+                $('#sdk1').append(new Option(ret[i], ret[i]));
+                $('#sdk2').append(new Option(ret[i], ret[i]));
+                console.log(ret[i]);
+            }
+        }});
+    });
+    });
+
+  </script>
+
+<style>
+
+
+    body {
+      font-family: "Lato", sans-serif;
+    }
+    .sidenav {
+      height: 100%;
+      width: 40%;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      background-color: rgb(231, 231, 231);
+      overflow-x: scroll;
+      overflow-y: scroll;
+      padding-top: 20px;
+      color: black;
+    }
+  
+    .sidenav a {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 15px;
+      color: #1f1f1f;
+      margin-left: 5%;
+      display: block;
+    }
+  
+    .sidenav li {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 15px;
+      margin-left: 5%;
+      color: #000000;
+      display: block;
+    }
+  
+    .sidenav a:hover {
+      color: #535151;
+    }
+  
+    .main {
+      margin-left: 160px; /* Same as the width of the sidenav */
+      font-size: 28px; /* Increased text to enable scrolling */
+      padding: 0px 10px;
+    }
+  
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+  
+    form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+  }
+  
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  form.example button:hover {
+    background: #0b7dda;
+  }
+  
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+    </style>
+  
+  
+
+</head>
+
+
+
+
+<body>
+
+<div id="nav-placeholder">
+
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
+});
+</script>
+
+<div class="sidenav">
+    <h3 style="margin-left:4%;">{{ parent }}</h3>
+    {% for comp in dir_tuple %}
+    {% if comp.1 == "d" %}
+      <a style="color:{{ comp.2 }};" href="/diffbrowse/&abs_ref/&{{ comp.3 }}&{{ comp.4 }}&{{ comp.5 }}">{{ comp.0 }}</a>
+    {% else %}
+      <a style="color:{{ comp.2 }};" href="/showdiff/&{{ comp.3 }}&{{ comp.4 }}">{{ comp.0 }}</a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div style="margin-top:20px;border-width:2px;margin-left:42%;font-size:20px;block-size: auto;align-content: space-between;">
+    <label for="soc">SOC:</label>
+    <select name="soc" id="soc" required>
+      <option value="">-</option>
+      <option value="j721e">J721e</option>
+      <option value="j7200">J7200</option>
+    </select>
+  
+    <label for="sdktype">SDK Type:</label>
+    <select name="sdktype" id="sdktype" required>
+      <option value="">-</option>
+      <option value="linux">linux</option>
+      <option value="rtos">rtos</option>
+    </select>
+  
+  
+    <label for="sdk1">SDK 1:</label>
+    <select name="sdk1" id="sdk1" required>
+      <option value="">-</option>
+    </select>
+
+    <label for="sdk2">SDK 2:</label>
+    <select name="sdk2" id="sdk2" required>
+      <option value="">-</option>
+    </select>
+
+    <form method="POST" action="{% url  'diffpath' %}" style="margin-left: 70%;">
+        {% csrf_token %}
+      <button id="buttons_submit" type="submit" style="width:auto;">Submit</button>
+    </form>
+
+    <form action="{{ request.path }}&compare" style="margin-left: 70%;">
+    <input  id="buttons_compare" type="submit" style="width:auto;margin-left: 80%;margin-top: -3.8%;" value="Compare"/>
+    </form>
+
+
+</div>
+
+<div style="margin-left:45%;">
+    <div id="top_lvl" style="width:90%;height:65%;">
+    <h2 style="margin-left:-5%;"> Top level Stats</h2>
+    <ul>
+        <li style="color:#5dd159;">Added : {{ pstats.0.1 }}</li>
+        <li style="color:#b42626;">Removed : {{ pstats.0.2 }}</li>
+        <li style="color:#b1c33e;">Modified : {{ pstats.0.3 }}</li>
+        <br>
+        {% for item in stats %}
+        <li>"{{ item.0 }}" extension : 
+            <ul>    
+                <li style="color:#5dd159;">Added : {{ item.1 }}</li>
+                <li style="color:#b42626;">Removed : {{ item.2 }}</li>
+                <li style="color:#b1c33e;">Modified : {{ item.3 }}</li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    </div>
+    <div id="links" style="margin-top:5%;width:90%;height:15%;">
+        <a href="/doc1/">some doc for detailed summary</a>
+        <br>
+        <a href="/doc2/">Download link for patch</a>
+    </div>
+</div>
+
+</body>
+</html>

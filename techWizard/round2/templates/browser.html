@@ -4,36 +4,56 @@
   <title>Browse SDK</title>
   {% load static %}
   <script type="text/javascript" src="{% static 'scripts/jquery-3.5.0.js' %}"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    // $(document).ready(function(){
-    // $('#searchtext').submit(function() {
+  <script>
+      $(document).ready(function(){
 
-    //   var ipst = $('#ipst').val();
-    //   console.log(ipst)
-    //   $.ajax({
-    //     url: "searchbrowser/",
-    //     type: "get", //send it through get method
-    //     data: { 
-    //       ipst: ipst
-    //     },       
-    //     success: function(result){
-    //               var i;
-    //               console.log(result)
-    //               console.log(result.length)
-    //               var ret = JSON.parse(result) 
-                   
-    //               console.log(ret)
 
-    //               $('#sdk').empty()             
-    //               for (i = 0; i < ret.length; ++i) {
-    //                 $('#sdk').append(new Option(ret[i], ret[i]));
-    //               }
-    //     }});
-    //   });
-    // });
+        $("#buttons").click(function(){
+        var sdktype = $('#sdktype').val();
+        var soc = $('#soc').val();
+        var sdk = $('#sdk').val();
+        console.log(sdktype + soc);
 
+        $.ajax({
+        url: "/bpchangesubmit/",
+        type: "get", //send it through get method
+        data: { 
+          sdktype: sdktype, 
+          soc : soc,
+          sdk : sdk
+        },       
+        success: function(result){
+                  var resp = JSON.parse(result)
+        }});
+          
+      });
+
+      $('#sdktype').change(function() {
+
+      var sdktype = $('#sdktype').val();
+      var soc = $('#soc').val();
+
+      $.ajax({
+        url: "/builderdata/",
+        type: "get", //send it through get method
+        data: { 
+          sdktype: sdktype, 
+          soc: soc
+        },       
+        success: function(result){
+          var i;
+          var ret = JSON.parse(result)  
+          $('#sdk').empty()             
+          for (i = 0; i < ret.length; ++i) {
+            $('#sdk').append(new Option(ret[i], ret[i]));
+          }
+        }});
+      });
+      });
   </script>
+
   <style>
 
 
@@ -42,7 +62,7 @@
   }
   .sidenav {
     height: 100%;
-    width: 200px;
+    width: 20%;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -72,6 +92,7 @@
     color: #f1f1f1;
   }
 
+  
   .main {
     margin-left: 160px; /* Same as the width of the sidenav */
     font-size: 28px; /* Increased text to enable scrolling */
@@ -88,7 +109,7 @@
   font-size: 17px;
   border: 1px solid grey;
   float: left;
-  width: 80%;
+  width: 40%;
   background: #f1f1f1;
 }
 
@@ -112,6 +133,23 @@ form.example::after {
   content: "";
   clear: both;
   display: table;
+}
+
+form.example select {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 30%;
+  background: #f1f1f1;
+}
+
+form.example label{
+  padding: 10px;
+  font-size: 17px;
+  float: left;
+  width: 40%;
+  background: #ffffff;
 }
 
   </style>
@@ -142,8 +180,35 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
   {% endfor %}
 </div>
 
-<div>
-  <form class="example" method="POST" action="{% url  'searchString' %}" style="margin:auto;max-width:400px;margin-top:10px;">
+<div style="margin-left:22%;width: 75%;padding: 10px;margin-top: 10px;font-size: 20px;">
+  <!-- <form class="example" style="margin:auto;width: 35%;margin-top:10px;"> -->
+    <label for="soc">SOC:</label>
+    <select name="soc" id="soc" required>
+      <option value="">-</option>
+      <option value="j721e">J721e</option>
+      <option value="j7200">J7200</option>
+    </select>
+
+    <label for="sdktype">SDK Type:</label>
+    <select name="sdktype" id="sdktype" required>
+      <option value="">-</option>
+      <option value="linux">linux</option>
+      <option value="rtos">rtos</option>
+    </select>
+
+
+    <label for="sdk">SDK :</label>
+    <select name="sdk" id="sdk" required>
+      <option value="">-</option>
+    </select>
+
+    <form method="POST" action="{% url  'searchString' %}" style="margin:auto;max-width:35%;margin-top:10px;">
+      {% csrf_token %}
+    <button id="buttons" type="submit" style="width:auto;">Go</button>
+    </form>
+  <!-- </form> -->
+
+  <form class="example" method="POST" action="{% url  'searchString' %}" style="margin:auto;max-width:35%;margin-top:10px;">
     {% csrf_token %}
     <input name="searchtext" id="ipst" type="text" placeholder="Search.." style="width:250px">
     <button id="searchtext" type="submit" style="width:150px">Submit</button>
@@ -152,9 +217,9 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
 
 <div class="top-right">
   {% if isSearch == 0 %}
-	  <textarea readonly="true" name="info" style="width:80%;margin-left:15%;" id="info" cols="39" rows="40" >{{ fileTest }}</textarea>
+	  <textarea readonly="true" name="info" style="width:76%;margin-left:22%;height:80%;" id="info" cols="35" rows="40" >{{ fileTest }}</textarea>
   {% else %}
-  <div style="margin-left:220px;">
+  <div style="margin-left:25%;">
     {% for items in srch_res %}
       {% if items.0 == 1 %}
         <p style="font-size:18px;">{{ items.1 }}</p>
