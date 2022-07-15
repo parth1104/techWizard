@@ -6,7 +6,7 @@ import os
 
 
 # versioned_components = {'rtos':['pdk_jacinto'],'linux':['linux','u-boot']}
-versioned_components = ['pdk_jacinto', 'linux', 'u-boot', 'cg_xml', 'dsplib_c66', 'mathlib_c66', 'mmalib', 'ti-cgt-armllvm', 'ti-cgt-c6000', 'ti-cgt-c7000', 'tidl_j7', 'uia', 'xdais']
+versioned_components = ['pdk_jacinto', 'pdk_j7200', 'linux', 'u-boot', 'cg_xml', 'dsplib_c66', 'mathlib_c66', 'mmalib', 'ti-cgt-armllvm', 'ti-cgt-c6000', 'ti-cgt-c7000', 'tidl_j7', 'uia', 'xdais']
 g_back_map = [{},{}]
 
 def short_dir_names(real_list,idx):

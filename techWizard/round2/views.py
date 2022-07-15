@@ -5,10 +5,14 @@ import json
 from django.http import HttpResponse
 from diff_browser import *
 
+RTOS=1
+LINUX=2
+
 gbase_path_perm = "/home/tanmay/inspire/sdk/"
 gbase_path = "/home/tanmay/inspire/sdk/"
 global_base1 = gbase_path_perm
 global_base2 = gbase_path_perm
+gsdk_type = 0
 
 
 SS_IS_UNKNOWN=0
@@ -164,6 +168,8 @@ class Test3(TemplateView):
         soc = request.GET["soc"] 
         sdk = request.GET["sdk"]
         global gbase_path
+        global gsdk_type
+        gsdk_type = RTOS if sdktype == "rtos" else LINUX
         gbase_path = gbase_path_perm + soc + '/' + sdktype + '/' + sdk + '/'
         print(gbase_path)
         dir_list = ["Success"]
@@ -181,7 +187,6 @@ class Test5(TemplateView):
         soc = request.GET["soc"] 
         folderpath = gbase_path_perm+soc+"/"+sdktype     
         dir_list = os.listdir(folderpath)
-        print("test 5 grtting called")
 
         return HttpResponse(json.dumps(dir_list))
 
@@ -244,7 +249,7 @@ class Test7(TemplateView):
         for item in dir_list:
             if item.startswith('.'):
                 continue
-            complete_path = base_path+"/"+item
+            complete_path = base_path+item
             ref_path = "/browser/" + os.path.relpath(complete_path, gbase_path)
             if os.path.isdir(complete_path):
                 dir_tuple.append((item, 'd', ref_path, isSearch))
@@ -253,7 +258,14 @@ class Test7(TemplateView):
             srch_res = []
 
         if isSearch : 
-            search_base_dir = '/home/tanmay/inspire/sdk/j721e/rtos/08_01_00_13/'
+            if gsdk_type == RTOS :
+                search_base_dir = base_path
+            else :
+                search_base_dir = base_path + "board-support/"
+                for items in os.listdir(search_base_dir) : 
+                    if 'linux' in items :
+                        search_base_dir = search_base_dir + items + '/'
+                        break
             os.chdir(search_base_dir)
             search_rel_path = os.path.relpath(search_base_dir, gbase_path) + '/'
             mylst = get_search_results_standard(searchtext)
