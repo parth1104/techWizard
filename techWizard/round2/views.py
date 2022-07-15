@@ -4,6 +4,7 @@ import os
 import json
 from django.http import HttpResponse
 from diff_browser import *
+from diff_analyzer import *
 
 RTOS=1
 LINUX=2
@@ -361,16 +362,23 @@ class Test10(TemplateView):
             parent = "/"
         
         lst = browse_diff_dir(path1, path2, relpath)
+        ppath = ('/'.join(lst[0][3].split('/')[:-1]), '/'.join(lst[0][4].split('/')[:-1]))
 
-        stats = [('.c', 23, 45, 67), ('.lds', 23, 45, 67), ('.cfg', 23, 45, 67), ('Makefiles', 23, 45, 67)]
+        # changes_str = get_diff_patch(path1, path2,"-qrbBX excludefiles.txt")
+
+
+
+        # status2numchanges, extension2numchanges, func_list = get_stats(changes_str)
+
+        stats = [('.c', 23, 45, 67), ('.lds', 23, 45, 67), ('.cfg', 23, 45, 67), ('Makefiles', 23, 45, 67), ('afddf', 45,576,47)]
         pstats = [('top_lvl', 35, 67, 65)]
 
-        return render(request, 'diff.html', {'parent' : parent, 'dir_tuple' : lst, 'stats' : stats, 'pstats' : pstats})
+        return render(request, 'diff.html', {'parent' : parent, 'dir_tuple' : lst, 'stats' : stats, 'pstats' : pstats, 'ppath' : ppath})
 
 class Test11(TemplateView):
     def get(self, request, path_name):
         tl = path_name.split('&')
-        Textfile = get_diff_patch(tl[-2], tl[-1])
+        Textfile = get_gitdiff_patch(tl[-2], tl[-1])
         if not Textfile :
             Textfile = "No changes for this file"
         return render(request, 'display_file.html', {'Textfile' : Textfile})

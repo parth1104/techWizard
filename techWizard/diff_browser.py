@@ -6,7 +6,7 @@ import os
 
 
 # versioned_components = {'rtos':['pdk_jacinto'],'linux':['linux','u-boot']}
-versioned_components = ['pdk_jacinto', 'pdk_j7200', 'linux', 'u-boot', 'cg_xml', 'dsplib_c66', 'mathlib_c66', 'mmalib', 'ti-cgt-armllvm', 'ti-cgt-c6000', 'ti-cgt-c7000', 'tidl_j7', 'uia', 'xdais']
+versioned_components = ['pdk_jacinto', 'pdk_j7200', 'linux', 'u-boot', 'cg_xml', 'dsplib_c66', 'mathlib_c66', 'mmalib', 'ti-cgt-armllvm', 'ti-cgt-c6000', 'ti-cgt-c7000', 'tidl_j7', 'uia', 'xdais', 'k3-image-gen']
 g_back_map = [{},{}]
 
 def short_dir_names(real_list,idx):
@@ -70,11 +70,11 @@ def browse_diff_dir(path1,path2,relative_path):
             status = '#b42626'
 
         if item in lst2:
-            status = '#5dd159'
+            status = '#259f31'
 
         if item in intersection_list:
             if item in changes_str:
-                status = '#b1c33e'
+                status = '#5d35d4'
             else:
                 status = '#1f1f1f'
 
@@ -90,6 +90,10 @@ def browse_diff_dir(path1,path2,relative_path):
 #     string that has the diff content
 def get_diff_patch(path1,path2, opt = ''):
     command = "diff " + opt + " " + path1 + " " + path2
+    return os.popen(command).read()
+
+def get_gitdiff_patch(path1,path2, opt = ''):
+    command = "git diff " + opt + " " + path1 + " " + path2
     return os.popen(command).read()
 
 

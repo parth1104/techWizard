@@ -83,7 +83,7 @@
     .sidenav a {
       padding: 6px 8px 6px 16px;
       text-decoration: none;
-      font-size: 15px;
+      font-size: 17px;
       color: #1f1f1f;
       margin-left: 5%;
       display: block;
@@ -92,7 +92,7 @@
     .sidenav li {
       padding: 6px 8px 6px 16px;
       text-decoration: none;
-      font-size: 15px;
+      font-size: 17px;
       margin-left: 5%;
       color: #000000;
       display: block;
@@ -143,7 +143,10 @@
     clear: both;
     display: table;
   }
-  
+
+  table, th, td {
+  border:1px solid black;
+}
     </style>
   
   
@@ -165,13 +168,13 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
 });
 </script>
 
-<div class="sidenav">
-    <h3 style="margin-left:4%;">{{ parent }}</h3>
+<div class="sidenav" style="font-size:25px;font-weight: 700;">
+    <h3 style="margin-left:4%;font-size: 25px;">{{ parent }}</h3>
     {% for comp in dir_tuple %}
     {% if comp.1 == "d" %}
-      <a style="color:{{ comp.2 }};" href="/diffbrowse/&abs_ref/&{{ comp.3 }}&{{ comp.4 }}&{{ comp.5 }}">{{ comp.0 }}</a>
+      <a style="color:{{ comp.2 }};" href="/diffbrowse/&abs_ref/&{{ comp.3 }}&{{ comp.4 }}&{{ comp.5 }}" style="font-size: 20px;" >{{ comp.0 }}</a>
     {% else %}
-      <a style="color:{{ comp.2 }};" href="/showdiff/&{{ comp.3 }}&{{ comp.4 }}">{{ comp.0 }}</a>
+      <a style="color:{{ comp.2 }};" href="/showdiff/&{{ comp.3 }}&{{ comp.4 }}"  style="font-size: 20px;">{{ comp.0 }}</a>
     {% endif %}
   {% endfor %}
 </div>
@@ -207,9 +210,6 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
       <button id="buttons_submit" type="submit" style="width:auto;">Submit</button>
     </form>
 
-    <form action="{{ request.path }}&compare" style="margin-left: 70%;">
-    <input  id="buttons_compare" type="submit" style="width:auto;margin-left: 80%;margin-top: -3.8%;" value="Compare"/>
-    </form>
 
 
 </div>
@@ -217,26 +217,69 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
 <div style="margin-left:45%;">
     <div id="top_lvl" style="width:90%;height:65%;">
     <h2 style="margin-left:-5%;"> Top level Stats</h2>
-    <ul>
+
+    <table style="width: 100%;">
+        <tr>
+            <th></th>
+            <th>Top Level</th>
+            <th>'*.c' Extension</th>
+            <th>'*.h' Extension</th>
+            <th>Makefiles</th>
+            <th>'*.cfg' Extension</th>
+            <th>'*.lds' Extension</th>
+        </tr>
+        <tr>
+            <th style="color:#259f31;text-align: center;" >Added</th>
+            <td style="color:#259f31;text-align: center;" >{{ pstats.0.1 }}</td>
+            <td style="color:#259f31;text-align: center;" >{{ stats.0.1 }}</td>
+            <td style="color:#259f31;text-align: center;" >{{ stats.1.1 }}</td>
+            <td style="color:#259f31;text-align: center;" >{{ stats.2.1 }}</td>
+            <td style="color:#259f31;text-align: center;" >{{ stats.3.1 }}</td>
+            <td style="color:#259f31;text-align: center;" >{{ stats.4.1 }}</td>
+        </tr>
+
+        <tr>
+            <th style="color:#5d35d4;text-align: center;" >Modified</th>
+            <td style="color:#5d35d4;text-align: center;" >{{ pstats.0.2 }}</th>
+            <td style="color:#5d35d4;text-align: center;" >{{ stats.0.2 }}</th>
+            <td style="color:#5d35d4;text-align: center;" >{{ stats.1.2 }}</td>
+            <td style="color:#5d35d4;text-align: center;" >{{ stats.2.2 }}</td>
+            <td style="color:#5d35d4;text-align: center;" >{{ stats.3.2 }}</td>
+            <td style="color:#5d35d4;text-align: center;" >{{ stats.4.2 }}</td>
+        </tr>
+
+        <tr>
+            <th style="color:#b42626;text-align: center;" >Removed</th>
+            <td style="color:#b42626;text-align: center;" >{{ pstats.0.3 }}</td>
+            <td style="color:#b42626;text-align: center;" >{{ stats.0.3 }}</td>
+            <td style="color:#b42626;text-align: center;" >{{ stats.1.3 }}</td>
+            <td style="color:#b42626;text-align: center;" >{{ stats.2.3 }}</td>
+            <td style="color:#b42626;text-align: center;" >{{ stats.3.3 }}</td>
+            <td style="color:#b42626;text-align: center;" >{{ stats.4.3 }}</td>
+        </tr>
+    </table>
+
+
+    <!-- <ul>
         <li style="color:#5dd159;">Added : {{ pstats.0.1 }}</li>
         <li style="color:#b42626;">Removed : {{ pstats.0.2 }}</li>
-        <li style="color:#b1c33e;">Modified : {{ pstats.0.3 }}</li>
+        <li style="color:#3547bb;">Modified : {{ pstats.0.3 }}</li>
         <br>
         {% for item in stats %}
         <li>"{{ item.0 }}" extension : 
             <ul>    
                 <li style="color:#5dd159;">Added : {{ item.1 }}</li>
                 <li style="color:#b42626;">Removed : {{ item.2 }}</li>
-                <li style="color:#b1c33e;">Modified : {{ item.3 }}</li>
+                <li style="color:#3547bb;">Modified : {{ item.3 }}</li>
             </ul>
         </li>
         {% endfor %}
-    </ul>
+    </ul> -->
     </div>
     <div id="links" style="margin-top:5%;width:90%;height:15%;">
         <a href="/doc1/">Detailed summary</a>
         <br>
-        <a href="/doc2/">Download link for patch</a>
+        <a href="/showdiff/&{{ ppath.0 }}&{{ ppath.1 }}">Download link for Folder-level Patch</a>
     </div>
 </div>
 
