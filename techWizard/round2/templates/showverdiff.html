@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% load static %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+
+</head>
+
+
+
+<body>
+  <div id="nav-placeholder">
+  </div>
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+    jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
+    });
+    </script>
+
+<!-- 
+
+
+<form action="/clue2.html">
+  Key in your answer: <input type="text" name="day" pattern="[Ss][Uu][Nn][Dd][Aa][Yy]" title="Wrong Answer">
+  <input type="submit">
+</form> -->
+
+<div style="padding:5%;">
+    <table style="width:100%">
+      <tr>
+        <th> Component </th>
+        <th> Version 1</th>
+        <th> Version 2</th>
+      </tr>
+      <tr>
+        <td>CG XML</td>
+        <td>2.61.00</td>
+        <td> 2.61.00 </td>
+      </tr>
+      <tr>
+        <td>DSPLIB</td>
+        <td>3_4_0_0</td>
+        <td> 3_4_0_0 </td>
+      </tr>
+      <tr>
+        <td>Mathlib</td>
+        <td>3_1_2_1</td>
+        <td> 3_1_2_1 </td>
+      </tr>
+      <tr>
+        <td>IVISION</td>
+        <td>01.00.00.00</td>
+        <td> 01.00.00.00 </td>
+      </tr>
+      <tr>
+        <td>PERCEPTION</td>
+        <td>1.4.0</td>
+        <td> 1.4.0 </td>
+      </tr>
+      <tr>
+        <td>TI CGT ARM</td>
+        <td>1.3.0.LTS</td>
+        <td> 1.3.0.LTS </td>
+      </tr>
+      <tr>
+        <td>TI CGT C6000</td>
+        <td>8.3.7</td>
+        <td> 8.3.7 </td>
+      </tr>
+      <tr>
+        <td>TI CGT C7000</td>
+        <td>2.0.1.STS</td>
+        <td> 2.1.1.LTS </td>
+      </tr>
+      <tr>
+        <td>UIA</td>
+        <td>2_30_01_02</td>
+        <td> 2_30_01_02</td>
+      </tr>
+      <tr>
+        <td>XDIAS</td>
+        <td>7_24_00_04</td>
+        <td> 7_24_00_04 </td>
+      </tr>
+    </table>
+    
+</div>
+
+
+</body>
+</html>

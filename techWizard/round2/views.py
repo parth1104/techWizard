@@ -362,16 +362,40 @@ class Test10(TemplateView):
             parent = "/"
         
         lst = browse_diff_dir(path1, path2, relpath)
+        # print(lst)
         ppath = ('/'.join(lst[0][3].split('/')[:-1]), '/'.join(lst[0][4].split('/')[:-1]))
 
+        extensions = ['.c', '.h', '.make', 'Makefile', 'makefile', '.mk', '.mak', '.Mk', '.cfg', '.lds']
+
+        status2numchanges, extension2numchanges, func_list = get_stats(path1,path2,extensions)
+
+        print(extension2numchanges)
+
+        c_dict = extension2numchanges['.c']
+        h_dict = extension2numchanges['.h']
+        cfg_dict = extension2numchanges['.cfg']
+        lds_dict = extension2numchanges['.lds']
+        makefile_dict = {'a': 0, 'm':0, 'r':0}
+        for i in ['.make', 'Makefile', 'makefile', '.mk', '.mak', '.Mk']: 
+            makefile_dict['a'] += extension2numchanges[i]['a']
+            makefile_dict['m'] += extension2numchanges[i]['m']
+            makefile_dict['r'] += extension2numchanges[i]['r']
+
         # changes_str = get_diff_patch(path1, path2,"-qrbBX excludefiles.txt")
+        pstats = [tuple(['toplvl'] + [status2numchanges[i] for i in status2numchanges])]
+        stats=[]
+        stats.append(tuple(['.c'] +[c_dict[i] for i in c_dict]))
+        stats.append(tuple(['.h'] +[h_dict[i] for i in h_dict]))
+        stats.append(tuple(['makefile'] +[makefile_dict[i] for i in makefile_dict]))
+        stats.append(tuple(['.cfg'] +[cfg_dict[i] for i in cfg_dict]))
+        stats.append(tuple(['.lds'] +[lds_dict[i] for i in lds_dict]))
+
+        print(stats)
 
 
 
         # status2numchanges, extension2numchanges, func_list = get_stats(changes_str)
 
-        stats = [('.c', 23, 45, 67), ('.lds', 23, 45, 67), ('.cfg', 23, 45, 67), ('Makefiles', 23, 45, 67), ('afddf', 45,576,47)]
-        pstats = [('top_lvl', 35, 67, 65)]
 
         return render(request, 'diff.html', {'parent' : parent, 'dir_tuple' : lst, 'stats' : stats, 'pstats' : pstats, 'ppath' : ppath})
 
@@ -382,3 +406,16 @@ class Test11(TemplateView):
         if not Textfile :
             Textfile = "No changes for this file"
         return render(request, 'display_file.html', {'Textfile' : Textfile})
+
+class Test12(TemplateView):
+    def get(self, request, path_name):
+        tl = path_name.split('&')
+        NULL, NULL, func_list = get_stats(tl[-2],tl[-1],['.h'])
+        if not func_list :
+            Textfile = "No changes"
+        return render(request, 'detailed_summary.html', {'param' : (tl[-2], func_list)})
+
+class Test13(TemplateView):
+    def get(self, request, path_name):
+        tl = path_name.split('&')
+        return render(request, 'showverdiff.html', {'param' : (tl[-2])})

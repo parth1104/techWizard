@@ -1,0 +1,75 @@
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/cryptodev-module-1.10/.git/index and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/cryptodev-module-1.10/.git/index differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/cryptodev-module-1.10/.git/logs/HEAD and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/cryptodev-module-1.10/.git/logs/HEAD differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/cryptodev-module-1.10/.git/logs/refs/heads/master and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/cryptodev-module-1.10/.git/logs/refs/heads/master differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/cryptodev-module-1.10/.git/logs/refs/remotes/origin/HEAD and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/cryptodev-module-1.10/.git/logs/refs/remotes/origin/HEAD differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/index and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/index differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/info/refs and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/info/refs differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/logs/HEAD and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/logs/HEAD differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/logs/refs/heads/1.13-5776728/linux-k5.10 and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/logs/refs/heads/1.13-5776728/linux-k5.10 differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/logs/refs/heads/master and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/logs/refs/heads/master differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/logs/refs/remotes/origin/HEAD and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/logs/refs/remotes/origin/HEAD differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/objects/info/packs and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/objects/info/packs differ
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/objects/pack: pack-1c5ac4e263e73512a239b847f6e81e07417ba3cd.idx
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/objects/pack: pack-1c5ac4e263e73512a239b847f6e81e07417ba3cd.pack
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/objects/pack: pack-d98ddb63991b9bc6ce89f3fe3250aaf5ff8e7586.idx
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/objects/pack: pack-d98ddb63991b9bc6ce89f3fe3250aaf5ff8e7586.pack
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/packed-refs and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/extra-drivers/ti-img-rogue-driver-1.13.5776728/.git/packed-refs differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/host-tools/k3-bootswitch/dfu-boot.sh and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/host-tools/k3-bootswitch/dfu-boot.sh differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/host-tools/k3-bootswitch/k3bootswitch.conf and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/host-tools/k3-bootswitch/k3bootswitch.conf differ
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/host-tools/k3-bootswitch: rps
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support: k3-image-gen-2021.09a
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support: k3-image-gen-2022.01
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support: linux-5.10.100+gitAUTOINC+7a7a3af903-g7a7a3af903
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support: linux-5.10.65+gitAUTOINC+dcc6bedb2c-gdcc6bedb2c
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/bl31.bin.signed and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/bl31.bin.signed differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/bl32.bin.signed and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/bl32.bin.signed differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/fitImage and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/fitImage differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/Image and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/Image differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/Image.sec and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/Image.sec differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/ipc_echo_testb_mcu1_0_release_strip.xer5f and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/ipc_echo_testb_mcu1_0_release_strip.xer5f differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/ipc_echo_testb_mcu1_0_release_strip.xer5f.signed and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/ipc_echo_testb_mcu1_0_release_strip.xer5f.signed differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-common-proc-board.dtb and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-common-proc-board.dtb differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-common-proc-board.dtb.sec and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-common-proc-board.dtb.sec differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-common-proc-board-infotainment.dtbo.sec and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-common-proc-board-infotainment.dtbo.sec differ
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-fusion.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-cm-0-0.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-cm-0-1.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-cm-0-2.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-cm-0-3.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-cm-1-0.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-cm-1-1.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-cm-1-2.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-cm-1-3.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-rcm-0-0.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-rcm-0-1.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-rcm-0-2.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-rcm-0-3.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-rcm-1-0.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-rcm-1-1.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-rcm-1-2.dtbo
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-cpb-fpdlink-imx390-rcm-1-3.dtbo
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-edgeai-apps.dtbo and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-edgeai-apps.dtbo differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-proc-board-tps65917.dtb and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-proc-board-tps65917.dtb differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-proc-board-tps65917.dtb.sec and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-proc-board-tps65917.dtb.sec differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-sk.dtb and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-sk.dtb differ
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images: k3-j721e-sk-fpdlink-fusion.dtbo
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-sk-rpi-exp-header.dtbo and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-sk-rpi-exp-header.dtbo differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-vision-apps.dtbo and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-vision-apps.dtbo differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/k3-j721e-vision-apps.dtbo.sec and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/k3-j721e-vision-apps.dtbo.sec differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/sysfw.itb and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/sysfw.itb differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/u-boot.img and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/u-boot.img differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/u-boot-j7-evm.img and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/u-boot-j7-evm.img differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/u-boot-spl.bin-j7-evm and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/u-boot-spl.bin-j7-evm differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/prebuilt-images/version and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/prebuilt-images/version differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/trusted-firmware-a-2.5/.git/index and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/trusted-firmware-a-2.5/.git/index differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/trusted-firmware-a-2.5/.git/logs/HEAD and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/trusted-firmware-a-2.5/.git/logs/HEAD differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/trusted-firmware-a-2.5/.git/logs/refs/heads/master and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/trusted-firmware-a-2.5/.git/logs/refs/heads/master differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/trusted-firmware-a-2.5/.git/logs/refs/heads/ti-atf and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/trusted-firmware-a-2.5/.git/logs/refs/heads/ti-atf differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/trusted-firmware-a-2.5/.git/logs/refs/remotes/origin/HEAD and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/trusted-firmware-a-2.5/.git/logs/refs/remotes/origin/HEAD differ
+Files /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/trusted-firmware-a-2.5/.git/objects/info/packs and /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/trusted-firmware-a-2.5/.git/objects/info/packs differ
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/trusted-firmware-a-2.5/.git/objects/pack: pack-79de48d33889192139d948d4b5c00b39c4551726.idx
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support/trusted-firmware-a-2.5/.git/objects/pack: pack-79de48d33889192139d948d4b5c00b39c4551726.pack
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/trusted-firmware-a-2.5/.git/objects/pack: pack-8b4138ae04634164b5f03ae2475774448ceccdee.idx
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support/trusted-firmware-a-2.5/.git/objects/pack: pack-8b4138ae04634164b5f03ae2475774448ceccdee.pack
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_01_00_07/board-support: u-boot-2021.01+gitAUTOINC+15769936a5-g15769936a5
+Only in /home/tanmay/inspire/sdk/j721e/linux/08_02_00_03/board-support: u-boot-2021.01+gitAUTOINC+44a87e3ab8-g44a87e3ab8

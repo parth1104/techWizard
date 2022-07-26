@@ -3,6 +3,7 @@
 
 import sys
 import os
+from diff_analyzer import *
 
 
 # versioned_components = {'rtos':['pdk_jacinto'],'linux':['linux','u-boot']}
@@ -48,6 +49,8 @@ def browse_diff_dir(path1,path2,relative_path):
     diff_map = []
 
     changes_str = get_diff_patch(path1,path2,"-qrbBX excludefiles.txt")
+    changes = changes_str.split('\n')
+    print(len(changes))
 
     for item in union_list:
         if item.startswith('.') :
@@ -55,6 +58,7 @@ def browse_diff_dir(path1,path2,relative_path):
         if item in versioned_components:
             complete_path1 = path1 + '/' + g_back_map[0][item]
             complete_path2 = path2 + '/' + g_back_map[1][item]
+            changes_str += '\n' + get_diff_patch(complete_path1,complete_path2,"-qrbBX excludefiles.txt")
         else:
             complete_path1 = path1 + '/' + item
             complete_path2 = path2 + '/' + item
@@ -79,6 +83,9 @@ def browse_diff_dir(path1,path2,relative_path):
                 status = '#1f1f1f'
 
         diff_map.append((item, itemtype , status, complete_path1, complete_path2, item_relative_path))
+
+    changes = changes_str.split('\n')
+    print(len(changes))
 
     return diff_map
 
@@ -142,8 +149,7 @@ if __name__ == "__main__":
     SDK2_PATH = base_path + SOC + '/'+ OS + '/' + VERSION2
 
     relative_path = ''
-    # relative_path = ''
-    relative_path += '/' + 'vision_apps'
+    # relative_path += '/' + 'vision_apps'
     # relative_path += '/' + 'platform'
     # relative_path += '/' + 'apps/basic_demos/app_multi_cam/main.c'
     my_type = 'd'

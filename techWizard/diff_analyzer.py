@@ -42,6 +42,9 @@ def analyze_diff(complete_path1,complete_path2):
 
     changes_str = get_diff_patch(complete_path1,complete_path2,"-qrbBX excludefiles.txt")
 
+    # f = open('temp.txt','w')
+    # f.write(changes_str)
+    # f.close()
     changes = changes_str.split('\n')
 
     for change in changes:
@@ -68,6 +71,8 @@ def get_stats(complete_path1,complete_path2,ext_list):
     global extension2numchanges
     global status2numchanges
 
+    if '.h' not in ext_list:
+        ext_list.append('.h')
     init_dicts(ext_list)
     
     analyze_diff(complete_path1,complete_path2)
@@ -84,7 +89,7 @@ def get_stats(complete_path1,complete_path2,ext_list):
                 file2_name = words[3]
 
             if 'Only' in change:
-                if VERSION2 in change:
+                if complete_path2 in change:
                     file1_name = 'dummy_file'
                     file2_name = words[-2].strip(':') + '/' + words[-1]
                 else:
@@ -115,7 +120,7 @@ if __name__ == "__main__":
     SDK1_PATH = base_path + SOC + '/'+ OS + '/' + VERSION1
     SDK2_PATH = base_path + SOC + '/'+ OS + '/' + VERSION2
 
-    relative_path = '/board-support/k3-respart-tool'
+    relative_path = '/board-support'
     # relative_path = ''
     # relative_path += '/' + 'vision_apps'
     # relative_path += '/' + 'platform'

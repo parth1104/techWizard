@@ -17,6 +17,8 @@ urlpatterns = [
     path('searchString', views.Test7.as_view(), name='searchString'),
     path('builder.html', views.Test4.as_view()),
     re_path(r'^showdiff/(?P<path_name>\S+)/$', views.Test11.as_view()),
+    re_path(r'^detailed_summary/(?P<path_name>\S+)/$', views.Test12.as_view()),
+    re_path(r'^showverdiff/(?P<path_name>\S+)/$', views.Test13.as_view()),
     path('diff.html', views.Test8.as_view()),
 
 ]

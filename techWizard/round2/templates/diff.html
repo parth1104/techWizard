@@ -277,9 +277,11 @@ jQuery('#nav-placeholder').load("{% static 'nav.html' %}")
     </ul> -->
     </div>
     <div id="links" style="margin-top:5%;width:90%;height:15%;">
-        <a href="/doc1/">Detailed summary</a>
+        <a href="/detailed_summary/&{{ ppath.0 }}&{{ ppath.1 }}">Detailed summary</a>
         <br>
         <a href="/showdiff/&{{ ppath.0 }}&{{ ppath.1 }}">Download link for Folder-level Patch</a>
+        <br>
+        <a href="/showverdiff/&{{ ppath.0 }}&{{ ppath.1 }}">Version Summary</a>
     </div>
 </div>
 
